@@ -1,1 +1,2 @@
-# LLM-from-Scratch
+# Monu Kumar
+# mkuma47@uic.edu
