@@ -2,6 +2,7 @@ package edu.uic.llmforge
 package services
 
 import edu.uic.llmforge.model.VectorGenerator
+import edu.uic.llmforge.utils.ConfigUtil
 import org.apache.hadoop.io.{IntWritable, LongWritable, Text}
 import org.apache.hadoop.mapreduce.{Mapper, Reducer}
 import org.slf4j.LoggerFactory
@@ -40,7 +41,7 @@ object BPETokenizer {
   class BPEReducer extends Reducer[Text, IntWritable, Text, Text] {
     private val logger = LoggerFactory.getLogger(classOf[BPEReducer])
     private val collectedTokens = scala.collection.mutable.ListBuffer[Int]()
-    private val embeddingOutputFile = "/Users/monu/IdeaProjects/LLMForge/src/main/resources/output/embeddings.csv" // Path where embeddings will be saved
+    private val embeddingOutputFile = s"${ConfigUtil.finalConfig.embeddingOutputPath}" // Path where embeddings will be saved
     private val encoder = new Encoder()
 
     override def reduce(key: Text, values: java.lang.Iterable[IntWritable], context: Reducer[Text, IntWritable, Text, Text]#Context): Unit = {

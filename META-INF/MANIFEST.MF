@@ -6,4 +6,5 @@ Specification-Title: LLMForge
 Implementation-Vendor-Id: llmforge
 Specification-Version: 0.1.0-SNAPSHOT
 Implementation-Vendor: llmforge
-Main-Class: /Users/monu/IdeaProjects/LLMForge/src/main/scala/edu.uic.llmforge.Main
+Main-Class: edu.uic.llmforge.HW1
+
