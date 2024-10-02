@@ -46,9 +46,8 @@ libraryDependencies ++= Seq(
   // Deep Learning Libraries
   "org.deeplearning4j" % "deeplearning4j-core" % deepLearning4jVersion,
   "org.nd4j" % "nd4j-api" % nd4jApiVersion,
-
-  "org.nd4j" % "nd4j-native" % nd4jApiVersion classifier "macosx-x86_64", // Use aarch64 for M1/M2
-  "org.nd4j" % "nd4j-native-platform" % nd4jApiVersion, // classifier "macosx-aarch64", // Ensure this matches your architecture
+  "org.nd4j" % "nd4j-native" % nd4jApiVersion,
+  "org.nd4j" % "nd4j-native-platform" % nd4jApiVersion,
   "org.deeplearning4j" % "deeplearning4j-nlp" % deepLearning4jVersion,
 )
 
@@ -57,8 +56,17 @@ Compile / mainClass := Option("edu.uic.llmforge.HW1")
 run / mainClass := Option("edu.uic.llmforge.HW1")
 
 // Merging Strategies for Assembly
-ThisBuild / assemblyMergeStrategy := {
-  case PathList("META-INF", _*) => MergeStrategy.discard
+assembly / assemblyMergeStrategy := {
+  case PathList("META-INF", xs @ _*) =>
+    xs match {
+      case "MANIFEST.MF" :: Nil => MergeStrategy.discard
+      case "services" :: _      => MergeStrategy.concat
+      case _                    => MergeStrategy.discard
+    }
   case "reference.conf" => MergeStrategy.concat
+  case x if x.endsWith(".proto") => MergeStrategy.rename
+  case x if x.contains("hadoop") => MergeStrategy.first
   case _ => MergeStrategy.first
 }
+
+assembly / assemblyOption := (assembly / assemblyOption).value.withIncludeScala(true)

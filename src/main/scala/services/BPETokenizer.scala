@@ -72,10 +72,11 @@ object BPETokenizer {
     override def cleanup(context: Reducer[Text, IntWritable, Text, Text]#Context): Unit = {
       // Train the embedding model using the collected tokens
       if (collectedTokens.nonEmpty) {
-        println("Training embeddings using the collected tokens...")
+        logger.info("Training embeddings using the collected tokens...")
+        logger.info(s"Embedding output path $embeddingOutputFile")
         val uniqueTokens = collectedTokens.distinct.toSeq
         VectorGenerator.trainAndSaveEmbeddings(uniqueTokens, windowSize = 3, stride = 1, outputFileName = embeddingOutputFile)
-        println(s"Embeddings saved to $embeddingOutputFile")
+        logger.info(s"Embeddings saved to $embeddingOutputFile")
       }
     }
   }

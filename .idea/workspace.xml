@@ -4,19 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ffb908cd-92a3-4260-a922-cbd57104e422" name="Changes" comment="Embeddings + Map Reduce">
+    <list default="true" id="ffb908cd-92a3-4260-a922-cbd57104e422" name="Changes" comment="Hadoop Config">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/plugins.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/project/plugins.sbt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/logback.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/encodingoutput/._SUCCESS.crc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/encodingoutput/.part-r-00000.crc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/encodingoutput/_SUCCESS" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/encodingoutput/part-r-00000" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/input/data2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/input/data2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/shards/shard_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/HW1.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/embeddings.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/utils/ShardUtil.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/utils/ShardUtil.scala" afterDir="false" />
     </list>
@@ -90,6 +86,7 @@
   "keyToString": {
     "Application.LLMForge.executor": "Run",
     "Application.Sharder.executor": "Run",
+    "Application.TestND4JBackend.executor": "Debug",
     "Application.WordCountBPEJob.executor": "Run",
     "Application.main.executor": "Debug",
     "Remote JVM Debug.Remote Hadoop.executor": "Debug",
@@ -117,6 +114,10 @@
       <recent name="$PROJECT_DIR$/src/main/resources/input" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.LLMForge">
     <configuration name="LLMForge" type="Application" factoryName="Application" temporary="true">
@@ -127,7 +128,7 @@
       </envs>
       <option name="MAIN_CLASS_NAME" value="edu.uic.llmforge.HW1" />
       <module name="LLMForge" />
-      <option name="PROGRAM_PARAMETERS" value="&quot;LLMForge&quot; &quot;src/main/resources/input/data2.txt&quot; &quot;src/main/resources/output/shards&quot; &quot;src/main/resources/encodingoutput&quot; &quot;src/main/resources/output/embeddings/embeddings.csv&quot; " />
+      <option name="PROGRAM_PARAMETERS" value="&quot;LLMForge&quot; &quot;src/main/resources/input/data2.txt&quot; &quot;src/main/resources/output/shards&quot; &quot;src/main/resources/encodingoutput&quot; &quot;src/main/resources/output/embeddings/embeddingsTest.csv&quot; " />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="edu.uic.llmforge.*" />
@@ -144,6 +145,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="edu.uic.llmforge.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestND4JBackend" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="edu.uic.llmforge.services.TestND4JBackend" />
+      <module name="LLMForge" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.uic.llmforge.services.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -207,6 +221,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.TestND4JBackend" />
       <item itemvalue="Application.Sharder" />
       <item itemvalue="Application.WordCountBPEJob" />
       <item itemvalue="Application.LLMForge" />
@@ -217,6 +232,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.LLMForge" />
+        <item itemvalue="Application.TestND4JBackend" />
         <item itemvalue="Application.WordCountBPEJob" />
         <item itemvalue="Application.Sharder" />
       </list>
@@ -245,7 +261,7 @@
       <workItem from="1726499791446" duration="56337000" />
       <workItem from="1726996523142" duration="5134000" />
       <workItem from="1727001679137" duration="105101000" />
-      <workItem from="1727649093096" duration="74596000" />
+      <workItem from="1727649093096" duration="92868000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -271,7 +287,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727684000931</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Hadoop Config">
+      <option name="closed" value="true" />
+      <created>1727833074956</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1727833074956</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,7 +316,8 @@
     <MESSAGE value="Init" />
     <MESSAGE value="sbt change" />
     <MESSAGE value="Embeddings + Map Reduce" />
-    <option name="LAST_COMMIT_MESSAGE" value="Embeddings + Map Reduce" />
+    <MESSAGE value="Hadoop Config" />
+    <option name="LAST_COMMIT_MESSAGE" value="Hadoop Config" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -338,16 +363,6 @@
           <option name="timeStamp" value="140" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala</url>
-          <line>75</line>
-          <option name="timeStamp" value="141" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/utils/ShardUtil.scala</url>
-          <line>34</line>
-          <option name="timeStamp" value="150" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/HW1.scala</url>
           <line>66</line>
           <option name="timeStamp" value="163" />
@@ -358,19 +373,44 @@
           <option name="timeStamp" value="165" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala</url>
-          <line>14</line>
-          <option name="timeStamp" value="166" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala</url>
-          <line>19</line>
-          <option name="timeStamp" value="167" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/HW1.scala</url>
           <line>70</line>
           <option name="timeStamp" value="168" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/HW1.scala</url>
+          <line>33</line>
+          <option name="timeStamp" value="172" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/model/VectorGenerator.scala</url>
+          <line>81</line>
+          <option name="timeStamp" value="173" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala</url>
+          <line>77</line>
+          <option name="timeStamp" value="174" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/model/VectorGenerator.scala</url>
+          <line>67</line>
+          <option name="timeStamp" value="175" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/model/VectorGenerator.scala</url>
+          <line>75</line>
+          <option name="timeStamp" value="176" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/HW1.scala</url>
+          <line>18</line>
+          <option name="timeStamp" value="177" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala</url>
+          <line>73</line>
+          <option name="timeStamp" value="178" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>jar://$USER_HOME$/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/knuddels/jtokkit/1.1.0/jtokkit-1.1.0-sources.jar!/com/knuddels/jtokkit/GptBytePairEncoding.java</url>

@@ -90,15 +90,7 @@ class ShardUtil {
     val shardSize = Constants.shardSize
 
     val conf = new Configuration()
-//    conf.set("fs.defaultFS", "file:///") // Ensure local file system is set
-//    val fs = FileSystem.get(conf)
-//
-//    // Check if input path is on HDFS or local filesystem
-//    if (inputDatasetPath.startsWith("hdfs://")) {
-//      shardHDFS(inputDatasetPath, shardsDirectory, shardSize, fs)
-//    } else {
-//      shardLocal(inputDatasetPath, shardsDirectory, shardSize)
-//    }
+
     if (inputDatasetPath.startsWith("/user/hadoop/")) {
       conf.set("fs.defaultFS", "hdfs://localhost:9000") // Adjust this with your HDFS host
       val fs = FileSystem.get(conf)
