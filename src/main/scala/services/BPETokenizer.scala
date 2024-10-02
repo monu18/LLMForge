@@ -1,8 +1,9 @@
 package edu.uic.llmforge
 package services
 
-import edu.uic.llmforge.model.VectorGenerator
 import edu.uic.llmforge.utils.ConfigUtil
+
+import org.apache.hadoop.fs.Path
 import org.apache.hadoop.io.{IntWritable, LongWritable, Text}
 import org.apache.hadoop.mapreduce.{Mapper, Reducer}
 import org.slf4j.LoggerFactory
@@ -72,11 +73,17 @@ object BPETokenizer {
     override def cleanup(context: Reducer[Text, IntWritable, Text, Text]#Context): Unit = {
       // Train the embedding model using the collected tokens
       if (collectedTokens.nonEmpty) {
-        logger.info("Training embeddings using the collected tokens...")
-        logger.info(s"Embedding output path $embeddingOutputFile")
-        val uniqueTokens = collectedTokens.distinct.toSeq
-        VectorGenerator.trainAndSaveEmbeddings(uniqueTokens, windowSize = 3, stride = 1, outputFileName = embeddingOutputFile)
-        logger.info(s"Embeddings saved to $embeddingOutputFile")
+        logger.info("Writing collected tokens to HDFS for the next MapReduce job...")
+        val tokensOutputPath = new Path("/user/hadoop/output/tokens/tokens.txt")
+        val fs = tokensOutputPath.getFileSystem(context.getConfiguration)
+        val outputStream = fs.create(tokensOutputPath, true)
+
+        collectedTokens.distinct.foreach(token => {
+          outputStream.writeBytes(s"""${token.toString}
+""")
+        })
+
+        outputStream.close()
       }
     }
   }
