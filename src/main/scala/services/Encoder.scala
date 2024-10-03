@@ -55,4 +55,11 @@ class Encoder extends Tokenizer {
     // Decode using IntArrayList
     encoding.decode(intArrayList)
   }
+  def createInputOutputPairs(tokens: Seq[Int], windowSize: Int, stride: Int): Seq[(Array[Int], Int)] = {
+    tokens.sliding(windowSize + 1, stride).map { window =>
+      val inputSeq = window.take(windowSize).toArray
+      val targetToken = window.last
+      (inputSeq, targetToken)
+    }.toSeq
+  }
 }

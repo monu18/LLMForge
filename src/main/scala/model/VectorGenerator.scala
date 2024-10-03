@@ -23,7 +23,7 @@ object VectorGenerator {
   private val logger = LoggerFactory.getLogger(getClass)
 
   // Create sliding window samples from a sequence of tokens
-  private def createSlidingWindowSamples(tokens: Seq[Int], windowSize: Int, stride: Int): Seq[(Array[Int], Int)] = {
+  def createSlidingWindowSamples(tokens: Seq[Int], windowSize: Int, stride: Int): Seq[(Array[Int], Int)] = {
     logger.info("Creating sliding window samples")
     tokens.sliding(windowSize + 1, stride).map { window =>
       val inputSeq = window.take(windowSize).toArray
@@ -32,7 +32,7 @@ object VectorGenerator {
     }.toSeq
   }
 
-  def trainAndSaveEmbeddings(decodedTokens: Seq[Int], windowSize: Int, stride: Int, outputFileName: String): Unit = {
+  def trainAndSaveEmbeddings(decodedTokens: Seq[Int], windowSize: Int, stride: Int, outputFileName: String): (INDArray, Map[Int, Int]) = {
     logger.info("Starting training process")
     val (remappedDecoded, tokenToIndex) = remapTokens(decodedTokens)
     logger.info("Tokens remapped successfully")
@@ -67,6 +67,7 @@ object VectorGenerator {
     val embeddings: INDArray = model.getLayer(0).getParam("W")
     saveEmbeddings(outputFileName, embeddings, tokenToIndex)
     logger.info(s"Embeddings saved to $outputFileName")
+    (embeddings, tokenToIndex)
   }
 
   private def remapTokens(decodedTokens: Seq[Int]): (Seq[Int], Map[Int, Int]) = {

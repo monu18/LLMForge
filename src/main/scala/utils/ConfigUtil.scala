@@ -13,6 +13,7 @@ object ConfigUtil {
                         inputDatasetPath: String,
                         shardsDirectory: String,
                         encodingDirectory: String,
+                        tokenOutputPath: String,
                         embeddingOutputPath: String
                       )
 
@@ -22,6 +23,7 @@ object ConfigUtil {
     inputDatasetPath = config.getString("app.inputDatasetPath"),
     shardsDirectory = config.getString("app.shardsDirectory"),
     encodingDirectory = config.getString("app.encodingDirectory"),
+    tokenOutputPath = config.getString("app.tokenOutputPath"),
     embeddingOutputPath = config.getString("app.embeddingOutputPath")
   )
 
@@ -36,7 +38,8 @@ object ConfigUtil {
         inputDatasetPath = args.lift(1).getOrElse(defaultConfig.inputDatasetPath),
         shardsDirectory = args.lift(2).getOrElse(defaultConfig.shardsDirectory),
         encodingDirectory = args.lift(3).getOrElse(defaultConfig.encodingDirectory),
-        embeddingOutputPath = args.lift(4).getOrElse(defaultConfig.embeddingOutputPath)
+        tokenOutputPath = args.lift(4).getOrElse(defaultConfig.tokenOutputPath),
+        embeddingOutputPath = args.lift(5).getOrElse(defaultConfig.embeddingOutputPath)
       ))
     }
   }
