@@ -1,6 +1,8 @@
 package edu.uic.llmforge
 package services
 
+import edu.uic.llmforge.utils.ConfigUtil
+import org.apache.hadoop.fs.Path
 import org.apache.hadoop.io.{LongWritable, Text}
 import org.apache.hadoop.mapreduce.{Mapper, Reducer}
 import org.nd4j.linalg.api.ndarray.INDArray
@@ -40,7 +42,9 @@ object EmbeddingGenerator {
 
   class EmbeddingReducer extends Reducer[Text, Text, Text, Text] {
     val encoder = new Encoder
-
+    // Accumulate tokens from the shard
+    private val collectedEmbeddings = ListBuffer[String]()
+    
     override def reduce(key: Text, values: java.lang.Iterable[Text], context: Reducer[Text, Text, Text, Text]#Context): Unit = {
       val embeddingVectors = values.asScala.map { value =>
         val vectorArray = value.toString.split(",").map(_.toDouble)
@@ -56,10 +60,24 @@ object EmbeddingGenerator {
       val tokenWord = encoder.decode(Seq(tokenID))
       val embeddingStr = averageVector.toDoubleVector.mkString(",")
 
-      // Write the final averaged embedding
-      EmbeddingPreprocessor.saveEmbeddingToCSV(tokenID, tokenWord, embeddingStr)
+      collectedEmbeddings += s"$tokenID,$tokenWord,$embeddingStr"
 
       context.write(key, new Text(averageVector.toDoubleVector.mkString(",")))
+    }
+
+    // Cleanup method in Reducer
+    override def cleanup(context: Reducer[Text, Text, Text, Text]#Context): Unit = {
+      println("Reducer task finished. Cleanup called.")
+      val embeddingCsv = new Path("src/main/resources/output/embeddings.csv")
+      val fs = embeddingCsv.getFileSystem(context.getConfiguration)
+      val outputStream = fs.create(embeddingCsv, true)
+
+      collectedEmbeddings.foreach(token => {
+        outputStream.writeBytes(s"""$token
+""")
+      })
+
+      outputStream.close()
     }
   }
 }

@@ -4,22 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ffb908cd-92a3-4260-a922-cbd57104e422" name="Changes" comment="Hadoop Config">
+    <list default="true" id="ffb908cd-92a3-4260-a922-cbd57104e422" name="Changes" comment="MapReduce 2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.conf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/embeddingsTest.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/encodingoutput/._SUCCESS.crc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/encodingoutput/.part-r-00000.crc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/encodingoutput/_SUCCESS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/encodingoutput/part-r-00000" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/shards/shard_0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/tokens/.tokens.txt.crc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/tokens/tokens.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/HW1.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/HW1.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/model/VectorGenerator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/model/VectorGenerator.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/services/Encoder.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/Encoder.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/utils/ConfigUtil.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/utils/ConfigUtil.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/.part-r-00000.crc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/output/embeddings/.part-r-00000.crc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/part-r-00000" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/output/embeddings/part-r-00000" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/services/EmbeddingPreprocessor.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/EmbeddingPreprocessor.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +85,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.LLMForge.executor": "Run",
+    "Application.LLMForge.executor": "Debug",
     "Application.Sharder.executor": "Run",
     "Application.TestND4JBackend.executor": "Debug",
     "Application.WordCountBPEJob.executor": "Run",
@@ -313,7 +304,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727896196135</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="MapReduce 2">
+      <option name="closed" value="true" />
+      <created>1727932703510</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1727932703511</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -336,7 +335,8 @@
     <MESSAGE value="Embeddings + Map Reduce" />
     <MESSAGE value="Hadoop Config" />
     <MESSAGE value="Test MapReduce2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test MapReduce2" />
+    <MESSAGE value="MapReduce 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="MapReduce 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -377,16 +377,6 @@
           <option name="timeStamp" value="139" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/HW1.scala</url>
-          <line>68</line>
-          <option name="timeStamp" value="163" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala</url>
-          <line>44</line>
-          <option name="timeStamp" value="165" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/model/VectorGenerator.scala</url>
           <line>82</line>
           <option name="timeStamp" value="173" />
@@ -402,48 +392,14 @@
           <option name="timeStamp" value="176" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala</url>
-          <line>76</line>
-          <option name="timeStamp" value="185" />
+          <url>file://$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala</url>
+          <line>70</line>
+          <option name="timeStamp" value="209" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala</url>
-          <line>28</line>
-          <option name="timeStamp" value="199" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala</url>
-          <line>50</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="200" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala</url>
-          <line>31</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="204" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala</url>
-          <line>55</line>
-          <option name="timeStamp" value="205" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala</url>
-          <line>59</line>
-          <option name="timeStamp" value="206" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala</url>
-          <line>44</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="207" />
+          <line>75</line>
+          <option name="timeStamp" value="212" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>jar://$USER_HOME$/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/knuddels/jtokkit/1.1.0/jtokkit-1.1.0-sources.jar!/com/knuddels/jtokkit/GptBytePairEncoding.java</url>

@@ -63,29 +63,6 @@ object EmbeddingPreprocessor {
     (remappedTokens, tokenToIndex)
   }
 
-  def saveEmbeddingToCSV(tokenID: Int, tokenWord: String, embeddingStr: String): Unit = {
-    val csvFilePath = "src/main/resources/output/embeddings.csv"
-    val file = new File(csvFilePath)
-    val append = file.exists()
-
-    // Create the parent directory if it doesn't exist
-    val parentDir = file.getParentFile
-    if (parentDir != null && !parentDir.exists()) {
-      parentDir.mkdirs()
-    }
-
-    val pw = new PrintWriter(new FileWriter(file, append)) // Open in append mode if file exists
-    try {
-      // Write the header if it's a new file
-      if (!append) {
-        pw.println("TokenID,Word,Embeddings")
-      }
-      pw.println(s"$tokenID,$tokenWord,$embeddingStr")
-    } finally {
-      pw.close()
-    }
-  }
-
   def convertToIndArrays(inputOutputPairs: Seq[(Array[Int], Int)]): (INDArray, INDArray) = {
     val inputSequences: Array[Array[Double]] = inputOutputPairs.map { case (inputArray, _) =>
       inputArray.map(_.toDouble)
