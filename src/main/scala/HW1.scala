@@ -5,6 +5,7 @@ import services.BPETokenizer.{BPEMapper, BPEReducer}
 import utils.{ConfigUtil, ShardUtil}
 
 import edu.uic.llmforge.services.EmbeddingGenerator.{EmbeddingMapper, EmbeddingReducer}
+import edu.uic.llmforge.services.SemanticComputation.{SemanticMapper, SemanticReducer}
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.hadoop.io.{IntWritable, Text}
@@ -70,6 +71,7 @@ object HW1 {
     FileOutputFormat.setOutputPath(wordCountJob, encodingDirectoryPath)
 
     if (wordCountJob.waitForCompletion(true)) {
+      println("WordCountJob completed successfully.")
       // next Embedding Mapper Reducer
       val conf2 = new Configuration()
       if (inputPath.startsWith("/user/hadoop/")) {
@@ -101,6 +103,42 @@ object HW1 {
       FileOutputFormat.setOutputPath(embeddingJob, embeddingDirectoryPath)
       if (embeddingJob.waitForCompletion(true)) {
         println("EmbeddingJob completed successfully.")
+        val embeddingCsv: String = "src/main/resources/output/embeddings.csv"
+        val semanticsOutputPath: String = "src/main/resources/output/semantics"
+        val conf3 = new Configuration()
+        if (embeddingCsv.startsWith("/user/hadoop/")) {
+          conf3.set("fs.defaultFS", "hdfs://localhost:9000") // Adjust this with your HDFS host
+        } else {
+          conf3.set("fs.defaultFS", "file:///")
+        }
+        val fs2 = FileSystem.get(conf3)
+        val semanticsDirectoryPath = new Path(semanticsOutputPath)
+
+        // Check if output path already exists, and delete it if so
+        if (fs2.exists(semanticsDirectoryPath)) {
+          fs2.delete(semanticsDirectoryPath, true) // 'true' indicates recursive delete
+        }
+        val job = Job.getInstance(conf, "Semantics Job")
+        job.setJarByClass(this.getClass)
+
+        job.setMapperClass(classOf[SemanticMapper])
+        job.setReducerClass(classOf[SemanticReducer])
+
+        job.setMapOutputKeyClass(classOf[Text])
+        job.setMapOutputValueClass(classOf[Text])
+
+        job.setOutputKeyClass(classOf[Text])
+        job.setOutputValueClass(classOf[Text])
+
+        FileInputFormat.addInputPath(job, new Path(embeddingCsv))
+        FileOutputFormat.setOutputPath(job, new Path(semanticsOutputPath))
+
+        if (job.waitForCompletion(true)) {
+          println("Job completed successfully.")
+        } else {
+          println("Job failed.")
+        }
+        
       }
       else {
         println("EmbeddingJob failed.")

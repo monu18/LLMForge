@@ -4,19 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ffb908cd-92a3-4260-a922-cbd57104e422" name="Changes" comment="MapReduce refactor">
+    <list default="true" id="ffb908cd-92a3-4260-a922-cbd57104e422" name="Changes" comment="Cosine Similarity">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/.embeddings.csv.crc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/._SUCCESS.crc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/.part-r-00000.crc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/_SUCCESS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/part-r-00000" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/tokens/tokens.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/utils/Constants.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/utils/ConstantsUtil.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/utils/ShardUtil.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/utils/ShardUtil.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/output/semantics/.part-r-00000.crc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/output/semantics/.part-r-00000.crc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/output/semantics/part-r-00000" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/output/semantics/part-r-00000" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/HW1.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/HW1.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/services/SemanticComputation.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/SemanticComputation.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +120,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SemanticComputation">
+  <component name="RunManager" selected="Application.LLMForge">
     <configuration name="LLMForge" type="Application" factoryName="Application" temporary="true">
       <option name="ALTERNATIVE_JRE_PATH" value="corretto-11" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -253,8 +246,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SemanticComputation" />
         <item itemvalue="Application.LLMForge" />
+        <item itemvalue="Application.SemanticComputation" />
         <item itemvalue="Application.TestND4JBackend" />
         <item itemvalue="Application.WordCountBPEJob" />
         <item itemvalue="Application.Sharder" />
@@ -358,7 +351,23 @@
       <option name="project" value="LOCAL" />
       <updated>1727942314260</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Cosine Similarity">
+      <option name="closed" value="true" />
+      <created>1727974873702</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1727974873702</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Cosine Similarity">
+      <option name="closed" value="true" />
+      <created>1727974882135</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1727974882135</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,7 +392,8 @@
     <MESSAGE value="Test MapReduce2" />
     <MESSAGE value="MapReduce 2" />
     <MESSAGE value="MapReduce refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="MapReduce refactor" />
+    <MESSAGE value="Cosine Similarity" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cosine Similarity" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -463,7 +473,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/services/SemanticComputation.scala</url>
-          <line>24</line>
+          <line>21</line>
           <option name="timeStamp" value="215" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

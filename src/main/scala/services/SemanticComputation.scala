@@ -2,18 +2,15 @@ package edu.uic.llmforge
 package services
 
 import utils.{ConstantsUtil, SimilarityUtil}
-
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.hadoop.io.{IntWritable, Text}
 import org.apache.hadoop.mapreduce.{Job, Mapper, Reducer}
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat
-
 import scala.jdk.CollectionConverters.*
 import org.nd4j.linalg.factory.Nd4j
 import org.nd4j.linalg.api.ndarray.INDArray
-
 import scala.collection.mutable.ArrayBuffer
 
 object SemanticComputation {
@@ -63,17 +60,28 @@ object SemanticComputation {
 
   class SemanticMapper extends Mapper[Object, Text, Text, Text] {
 
+    // Store the word embeddings for the current batch of records
+    private val wordEmbeddings = scala.collection.mutable.Map[String, INDArray]()
+
     override def map(key: Object, value: Text, context: Mapper[Object, Text, Text, Text]#Context): Unit = {
       val line = value.toString.trim
-
-      // Splitting the CSV line while handling potential commas within quoted fields
       val parts = splitCSV(line)
 
-      // Check if the line contains at least a word and one embedding value
       if (parts.length > 2) {
         val word = parts(1).trim // The third column is the word
-        val embedding = parts.drop(2).mkString(",") // Join all embedding values into a single string
-        context.write(new Text(word), new Text(embedding))
+        val embedding = parts.drop(2).map(_.toDouble)
+        val embeddingVector = Nd4j.create(embedding.toArray)
+
+        wordEmbeddings.put(word, embeddingVector)
+
+        // Perform partial similarity calculation for the batch
+        wordEmbeddings.foreach { case (otherWord, otherEmbedding) =>
+          if (word != otherWord) {
+            val similarity = SimilarityUtil.cosineSimilarity(embeddingVector.toDoubleVector, otherEmbedding.toDoubleVector)
+            context.write(new Text(word), new Text(s"$otherWord:$similarity"))
+            context.write(new Text(otherWord), new Text(s"$word:$similarity")) // Symmetric similarities
+          }
+        }
       }
     }
 
@@ -96,45 +104,28 @@ object SemanticComputation {
     }
   }
 
-  // Reducer class to compute cosine similarities
   class SemanticReducer extends Reducer[Text, Text, Text, Text] {
-    // Store all word embeddings
-    private val wordEmbeddings = scala.collection.mutable.Map[String, INDArray]()
 
+    // Reducer to collect and aggregate similarities
     override def reduce(key: Text, values: java.lang.Iterable[Text], context: Reducer[Text, Text, Text, Text]#Context): Unit = {
-      // Collect the current word's embeddings
-      val embeddingArray = values.asScala.toSeq.flatMap(value => value.toString.split(",").map(_.toDouble))
+      val similarities = values.asScala.map(_.toString).toSeq
 
-      if (embeddingArray.nonEmpty) {
-        val embeddingVector = Nd4j.create(embeddingArray.toArray)
-        wordEmbeddings.put(key.toString, embeddingVector)
+      // Collect all similarity values
+      val similarityMap = similarities.map { similarityStr =>
+        val Array(word, score) = similarityStr.split(":")
+        (word, score.toDouble)
       }
-    }
 
-    // Cleanup method runs after all reduce calls are done
-    override def cleanup(context: Reducer[Text, Text, Text, Text]#Context): Unit = {
+      // Sort by highest similarity and get top N similar words
+      val topSimilarWords = similarityMap.toSeq.sortBy(-_._2).take(ConstantsUtil.MOST_SIMILAR_WORDS_BATCH_SIZE)
 
-      // Now we have all word embeddings, perform pairwise similarity calculations
-      wordEmbeddings.foreach { case (word1, vector1) =>
-        // Compute cosine similarity with all other embeddings
-        val similarities = wordEmbeddings.collect {
-          case (word2, vector2) if word1 != word2 =>
-            val similarity = SimilarityUtil.cosineSimilarity(vector1.toDoubleVector, vector2.toDoubleVector)
-            (word2, similarity)
-        }
+      // Convert to the desired output format
+      val similarWordsStr = topSimilarWords.map { case (word, score) =>
+        s"$word:$score"
+      }.mkString("; ")
 
-        // Get the top N most similar words
-        val topSimilarWords = similarities.toSeq.sortBy(-_._2).take(ConstantsUtil.MOST_SIMILAR_WORDS_BATCH_SIZE)
-
-        // Convert to the desired output format
-        val similarWordsStr = topSimilarWords.map { case (word, score) =>
-          s"$word:$score"
-        }.mkString("; ")
-
-        // Write the output
-        context.write(new Text(word1), new Text(similarWordsStr))
-      }
+      // Write the output
+      context.write(key, new Text(similarWordsStr))
     }
   }
-
 }
