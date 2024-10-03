@@ -6,7 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="ffb908cd-92a3-4260-a922-cbd57104e422" name="Changes" comment="MapReduce refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/output/.embeddings.csv.crc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/._SUCCESS.crc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/.part-r-00000.crc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/_SUCCESS" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/part-r-00000" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/output/tokens/tokens.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/utils/Constants.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/utils/ConstantsUtil.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/utils/ShardUtil.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/utils/ShardUtil.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +92,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.LLMForge.executor": "Run",
+    "Application.SemanticComputation.executor": "Run",
     "Application.Sharder.executor": "Run",
     "Application.TestND4JBackend.executor": "Debug",
     "Application.WordCountBPEJob.executor": "Run",
@@ -116,7 +127,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.LLMForge">
+  <component name="RunManager" selected="Application.SemanticComputation">
     <configuration name="LLMForge" type="Application" factoryName="Application" temporary="true">
       <option name="ALTERNATIVE_JRE_PATH" value="corretto-11" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -129,6 +140,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="edu.uic.llmforge.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SemanticComputation" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="edu.uic.llmforge.services.SemanticComputation" />
+      <module name="LLMForge" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.uic.llmforge.services.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -218,6 +242,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.SemanticComputation" />
       <item itemvalue="Application.TestND4JBackend" />
       <item itemvalue="Application.Sharder" />
       <item itemvalue="Application.WordCountBPEJob" />
@@ -228,6 +253,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SemanticComputation" />
         <item itemvalue="Application.LLMForge" />
         <item itemvalue="Application.TestND4JBackend" />
         <item itemvalue="Application.WordCountBPEJob" />
@@ -324,7 +350,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727941775657</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="MapReduce refactor">
+      <option name="closed" value="true" />
+      <created>1727942314260</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1727942314260</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -406,13 +440,31 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala</url>
-          <line>76</line>
+          <line>91</line>
           <option name="timeStamp" value="209" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala</url>
-          <line>81</line>
+          <line>96</line>
           <option name="timeStamp" value="212" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/utils/ConfigUtil.scala</url>
+          <line>28</line>
+          <option name="timeStamp" value="213" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/utils/ConfigUtil.scala</url>
+          <line>43</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="214" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/services/SemanticComputation.scala</url>
+          <line>24</line>
+          <option name="timeStamp" value="215" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>jar://$USER_HOME$/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/knuddels/jtokkit/1.1.0/jtokkit-1.1.0-sources.jar!/com/knuddels/jtokkit/GptBytePairEncoding.java</url>

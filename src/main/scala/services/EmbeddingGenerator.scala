@@ -1,7 +1,7 @@
 package edu.uic.llmforge
 package services
 
-import edu.uic.llmforge.utils.ConfigUtil
+import edu.uic.llmforge.utils.{ConfigUtil, ConstantsUtil}
 import org.apache.hadoop.fs.Path
 import org.apache.hadoop.io.{LongWritable, Text}
 import org.apache.hadoop.mapreduce.{Mapper, Reducer}
@@ -18,31 +18,46 @@ object EmbeddingGenerator {
   class EmbeddingMapper extends Mapper[LongWritable, Text, Text, Text] {
 
     private val logger = LoggerFactory.getLogger(classOf[EmbeddingMapper])
-    // Accumulate tokens from the shard
-    private val collectedTokens = ListBuffer[Int]()
+    private val collectedTokens = ListBuffer[Int]() // Token buffer
+    private val batchSize = ConstantsUtil.TOKEN_BATCH_SIZE // Process tokens in batches (adjust size as needed)
 
-    // The map method now only collects tokens
+    // The map method collects tokens and processes them in batches
     override def map(key: LongWritable, value: Text, context: Mapper[LongWritable, Text, Text, Text]#Context): Unit = {
       val line = value.toString.trim
       val tokens = line.split("\\s+").map(_.toInt) // Convert tokens to integers
-      collectedTokens ++= tokens // Collect all tokens from this shard
+      collectedTokens ++= tokens // Collect tokens from this line
+
+      // Process tokens in batches
+      if (collectedTokens.sizeIs >= batchSize) {
+        processBatch(context)
+      }
     }
 
     // The cleanup method is called once at the end of processing the shard
     override def cleanup(context: Mapper[LongWritable, Text, Text, Text]#Context): Unit = {
       logger.info("Mapper task finished. Cleanup called.")
+      // Process any remaining tokens that didn't form a full batch
       if (collectedTokens.nonEmpty) {
-        // Generate embeddings using the EmbeddingGenerator for the entire shard's tokens
-        val embeddings: Map[Int, INDArray] = EmbeddingPreprocessor.generateEmbeddingsForTokens(collectedTokens.toSeq, windowSize = 3, stride = 1)
-
-        // Emit each token and its corresponding embedding
-        embeddings.foreach { case (token, embeddingVector) =>
-          val embeddingStr = embeddingVector.toDoubleVector.mkString(",")
-          context.write(new Text(token.toString), new Text(embeddingStr))
-        }
+        processBatch(context)
       }
     }
+
+    // Process the current batch of tokens and clear the buffer
+    private def processBatch(context: Mapper[LongWritable, Text, Text, Text]#Context): Unit = {
+      // Generate embeddings for the current batch of tokens
+      val embeddings: Map[Int, INDArray] = EmbeddingPreprocessor.generateEmbeddingsForTokens(collectedTokens.toSeq, windowSize = ConstantsUtil.WINDOW_SIZE, stride = ConstantsUtil.STRIDE)
+
+      // Emit each token and its corresponding embedding
+      embeddings.foreach { case (token, embeddingVector) =>
+        val embeddingStr = embeddingVector.toDoubleVector.mkString(",")
+        context.write(new Text(token.toString), new Text(embeddingStr))
+      }
+
+      // Clear the token buffer after processing the batch
+      collectedTokens.clear()
+    }
   }
+
 
 
   class EmbeddingReducer extends Reducer[Text, Text, Text, Text] {
@@ -74,7 +89,7 @@ object EmbeddingGenerator {
     // Cleanup method in Reducer
     override def cleanup(context: Reducer[Text, Text, Text, Text]#Context): Unit = {
       logger.info("Reducer task finished. Cleanup called.")
-      val embeddingCsv = new Path(s"${ConfigUtil.finalConfig.embeddingCsvPath}")
+      val embeddingCsv = new Path("src/main/resources/output/embeddings.csv")
       val fs = embeddingCsv.getFileSystem(context.getConfiguration)
       val outputStream = fs.create(embeddingCsv, true)
 

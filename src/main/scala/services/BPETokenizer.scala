@@ -74,7 +74,7 @@ object BPETokenizer {
       // Train the embedding model using the collected tokens
       if (collectedTokens.nonEmpty) {
         logger.info("Writing collected tokens to HDFS for the next MapReduce job...")
-        val tokensOutputPath = new Path(s"${ConfigUtil.finalConfig.tokenOutputPath}")
+        val tokensOutputPath = new Path("src/main/resources/output/tokens/tokens.txt")
         val fs = tokensOutputPath.getFileSystem(context.getConfiguration)
         val outputStream = fs.create(tokensOutputPath, true)
 
