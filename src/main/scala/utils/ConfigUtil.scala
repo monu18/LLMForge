@@ -14,7 +14,8 @@ object ConfigUtil {
                         shardsDirectory: String,
                         encodingDirectory: String,
                         tokenOutputPath: String,
-                        embeddingOutputPath: String
+                        embeddingOutputPath: String,
+                        embeddingCsvPath: String
                       )
 
   // Load default values from application.conf
@@ -24,7 +25,8 @@ object ConfigUtil {
     shardsDirectory = config.getString("app.shardsDirectory"),
     encodingDirectory = config.getString("app.encodingDirectory"),
     tokenOutputPath = config.getString("app.tokenOutputPath"),
-    embeddingOutputPath = config.getString("app.embeddingOutputPath")
+    embeddingOutputPath = config.getString("app.embeddingOutputPath"),
+    embeddingCsvPath = config.getString("app.embeddingCsvPath")
   )
 
   // Define an Option to hold the final configuration (immutable after being set)
@@ -39,7 +41,8 @@ object ConfigUtil {
         shardsDirectory = args.lift(2).getOrElse(defaultConfig.shardsDirectory),
         encodingDirectory = args.lift(3).getOrElse(defaultConfig.encodingDirectory),
         tokenOutputPath = args.lift(4).getOrElse(defaultConfig.tokenOutputPath),
-        embeddingOutputPath = args.lift(5).getOrElse(defaultConfig.embeddingOutputPath)
+        embeddingOutputPath = args.lift(5).getOrElse(defaultConfig.embeddingOutputPath),
+        embeddingCsvPath = args.lift(6).getOrElse(defaultConfig.embeddingCsvPath)
       ))
     }
   }

@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ffb908cd-92a3-4260-a922-cbd57104e422" name="Changes" comment="MapReduce 2">
+    <list default="true" id="ffb908cd-92a3-4260-a922-cbd57104e422" name="Changes" comment="MapReduce refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.conf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/output/.embeddings.csv.crc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/.part-r-00000.crc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/output/embeddings/.part-r-00000.crc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/part-r-00000" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/output/embeddings/part-r-00000" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/services/EmbeddingPreprocessor.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/EmbeddingPreprocessor.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/utils/ConfigUtil.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/utils/ConfigUtil.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +87,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.LLMForge.executor": "Debug",
+    "Application.LLMForge.executor": "Run",
     "Application.Sharder.executor": "Run",
     "Application.TestND4JBackend.executor": "Debug",
     "Application.WordCountBPEJob.executor": "Run",
@@ -129,7 +131,7 @@
       </envs>
       <option name="MAIN_CLASS_NAME" value="edu.uic.llmforge.HW1" />
       <module name="LLMForge" />
-      <option name="PROGRAM_PARAMETERS" value="&quot;LLMForge&quot; &quot;src/main/resources/input/data2.txt&quot; &quot;src/main/resources/output/shards&quot; &quot;src/main/resources/output/encodingoutput&quot; &quot;src/main/resources/output/tokens/tokens.txt&quot; &quot;src/main/resources/output/embeddings&quot;" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;LLMForge&quot; &quot;src/main/resources/input/data2.txt&quot; &quot;src/main/resources/output/shards&quot; &quot;src/main/resources/output/encodingoutput&quot; &quot;src/main/resources/output/tokens/tokens.txt&quot; &quot;src/main/resources/output/embeddings&quot; &quot;src/main/resources/output/embeddings.csv&quot;" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="edu.uic.llmforge.*" />
@@ -312,7 +314,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727932703511</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="MapReduce refactor">
+      <option name="closed" value="true" />
+      <created>1727939748138</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1727939748138</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -336,7 +346,8 @@
     <MESSAGE value="Hadoop Config" />
     <MESSAGE value="Test MapReduce2" />
     <MESSAGE value="MapReduce 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="MapReduce 2" />
+    <MESSAGE value="MapReduce refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="MapReduce refactor" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
