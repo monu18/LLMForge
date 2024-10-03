@@ -5,8 +5,10 @@ import edu.uic.llmforge.utils.ConfigUtil
 import org.apache.hadoop.fs.Path
 import org.apache.hadoop.io.{LongWritable, Text}
 import org.apache.hadoop.mapreduce.{Mapper, Reducer}
+import org.apache.log4j.Logger
 import org.nd4j.linalg.api.ndarray.INDArray
 import org.nd4j.linalg.factory.Nd4j
+import org.slf4j.LoggerFactory
 
 import scala.collection.mutable.ListBuffer
 import scala.jdk.CollectionConverters.*
@@ -14,6 +16,8 @@ import scala.jdk.CollectionConverters.*
 object EmbeddingGenerator {
 
   class EmbeddingMapper extends Mapper[LongWritable, Text, Text, Text] {
+
+    private val logger = LoggerFactory.getLogger(classOf[EmbeddingMapper])
     // Accumulate tokens from the shard
     private val collectedTokens = ListBuffer[Int]()
 
@@ -26,6 +30,7 @@ object EmbeddingGenerator {
 
     // The cleanup method is called once at the end of processing the shard
     override def cleanup(context: Mapper[LongWritable, Text, Text, Text]#Context): Unit = {
+      logger.info("Mapper task finished. Cleanup called.")
       if (collectedTokens.nonEmpty) {
         // Generate embeddings using the EmbeddingGenerator for the entire shard's tokens
         val embeddings: Map[Int, INDArray] = EmbeddingPreprocessor.generateEmbeddingsForTokens(collectedTokens.toSeq, windowSize = 3, stride = 1)
@@ -41,6 +46,7 @@ object EmbeddingGenerator {
 
 
   class EmbeddingReducer extends Reducer[Text, Text, Text, Text] {
+    private val logger = LoggerFactory.getLogger(classOf[EmbeddingReducer])
     val encoder = new Encoder
     // Accumulate tokens from the shard
     private val collectedEmbeddings = ListBuffer[String]()
@@ -67,7 +73,7 @@ object EmbeddingGenerator {
 
     // Cleanup method in Reducer
     override def cleanup(context: Reducer[Text, Text, Text, Text]#Context): Unit = {
-      println("Reducer task finished. Cleanup called.")
+      logger.info("Reducer task finished. Cleanup called.")
       val embeddingCsv = new Path(s"${ConfigUtil.finalConfig.embeddingCsvPath}")
       val fs = embeddingCsv.getFileSystem(context.getConfiguration)
       val outputStream = fs.create(embeddingCsv, true)

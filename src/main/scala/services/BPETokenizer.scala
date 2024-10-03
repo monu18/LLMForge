@@ -82,7 +82,6 @@ object BPETokenizer {
           outputStream.writeBytes(s"""${token.toString}
 """)
         })
-
         outputStream.close()
       }
     }
