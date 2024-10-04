@@ -78,8 +78,8 @@ object SemanticComputation {
         wordEmbeddings.foreach { case (otherWord, otherEmbedding) =>
           if (word != otherWord) {
             val similarity = SimilarityUtil.cosineSimilarity(embeddingVector.toDoubleVector, otherEmbedding.toDoubleVector)
-            context.write(new Text(word), new Text(s"$otherWord:$similarity"))
-            context.write(new Text(otherWord), new Text(s"$word:$similarity")) // Symmetric similarities
+            context.write(new Text(s"$word |"), new Text(s"$otherWord:$similarity"))
+            context.write(new Text(s"$otherWord |"), new Text(s"$word:$similarity")) // Symmetric similarities
           }
         }
       }
