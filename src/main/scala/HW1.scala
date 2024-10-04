@@ -111,12 +111,12 @@ object HW1 {
         } else {
           conf3.set("fs.defaultFS", "file:///")
         }
-        val fs2 = FileSystem.get(conf3)
+        val fs3 = FileSystem.get(conf3)
         val semanticsDirectoryPath = new Path(semanticsOutputPath)
 
         // Check if output path already exists, and delete it if so
-        if (fs2.exists(semanticsDirectoryPath)) {
-          fs2.delete(semanticsDirectoryPath, true) // 'true' indicates recursive delete
+        if (fs3.exists(semanticsDirectoryPath)) {
+          fs3.delete(semanticsDirectoryPath, true) // 'true' indicates recursive delete
         }
         val job = Job.getInstance(conf, "Semantics Job")
         job.setJarByClass(this.getClass)
