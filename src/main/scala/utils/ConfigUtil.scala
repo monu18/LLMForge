@@ -13,7 +13,10 @@ object ConfigUtil {
                         inputDatasetPath: String,
                         shardsDirectory: String,
                         encodingDirectory: String,
-                        embeddingOutputPath: String
+                        tokenOutputPath: String,
+                        embeddingOutputPath: String,
+                        embeddingCsvPath: String,
+                        semanticsOutputPath: String
                       )
 
   // Load default values from application.conf
@@ -22,7 +25,10 @@ object ConfigUtil {
     inputDatasetPath = config.getString("app.inputDatasetPath"),
     shardsDirectory = config.getString("app.shardsDirectory"),
     encodingDirectory = config.getString("app.encodingDirectory"),
-    embeddingOutputPath = config.getString("app.embeddingOutputPath")
+    tokenOutputPath = config.getString("app.tokenOutputPath"),
+    embeddingOutputPath = config.getString("app.embeddingOutputPath"),
+    embeddingCsvPath = config.getString("app.embeddingCsvPath"),
+    semanticsOutputPath = config.getString("app.semanticsOutputPath")
   )
 
   // Define an Option to hold the final configuration (immutable after being set)
@@ -36,7 +42,10 @@ object ConfigUtil {
         inputDatasetPath = args.lift(1).getOrElse(defaultConfig.inputDatasetPath),
         shardsDirectory = args.lift(2).getOrElse(defaultConfig.shardsDirectory),
         encodingDirectory = args.lift(3).getOrElse(defaultConfig.encodingDirectory),
-        embeddingOutputPath = args.lift(4).getOrElse(defaultConfig.embeddingOutputPath)
+        tokenOutputPath = args.lift(4).getOrElse(defaultConfig.tokenOutputPath),
+        embeddingOutputPath = args.lift(5).getOrElse(defaultConfig.embeddingOutputPath),
+        embeddingCsvPath = args.lift(6).getOrElse(defaultConfig.embeddingCsvPath),
+        semanticsOutputPath = args.lift(7).getOrElse(defaultConfig.semanticsOutputPath)
       ))
     }
   }

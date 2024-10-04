@@ -87,7 +87,7 @@ class ShardUtil {
     // Load paths from the configuration
     val inputDatasetPath: String = s"${ConfigUtil.finalConfig.inputDatasetPath}"
     val shardsDirectory: String = s"${ConfigUtil.finalConfig.shardsDirectory}"
-    val shardSize = Constants.shardSize
+    val shardSize = ConstantsUtil.SHARD_SIZE
 
     val conf = new Configuration()
 
