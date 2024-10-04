@@ -65,7 +65,7 @@ object EmbeddingGenerator {
     val encoder = new Encoder
     // Accumulate tokens from the shard
     private val collectedEmbeddings = ListBuffer[String]()
-    
+
     override def reduce(key: Text, values: java.lang.Iterable[Text], context: Reducer[Text, Text, Text, Text]#Context): Unit = {
       val embeddingVectors = values.asScala.map { value =>
         val vectorArray = value.toString.split(",").map(_.toDouble)
@@ -89,7 +89,7 @@ object EmbeddingGenerator {
     // Cleanup method in Reducer
     override def cleanup(context: Reducer[Text, Text, Text, Text]#Context): Unit = {
       logger.info("Reducer task finished. Cleanup called.")
-      val embeddingCsv = new Path("src/main/resources/output/embeddings.csv")
+      val embeddingCsv = new Path("/user/hadoop/output/embeddings.csv")
       val fs = embeddingCsv.getFileSystem(context.getConfiguration)
       val outputStream = fs.create(embeddingCsv, true)
 

@@ -38,6 +38,8 @@ object HW1 {
     val encodingDirectory: String = s"${ConfigUtil.finalConfig.encodingDirectory}"
     val tokenOutputPath: String = s"${ConfigUtil.finalConfig.tokenOutputPath}"
     val embeddingOutputPath: String = s"${ConfigUtil.finalConfig.embeddingOutputPath}"
+    val embeddingCsvPath: String = s"${ConfigUtil.finalConfig.embeddingCsvPath}"
+    val semanticsOutputPath: String = s"${ConfigUtil.finalConfig.semanticsOutputPath}"
 
     val conf = new Configuration()
     if (inputPath.startsWith("/user/hadoop/")) {
@@ -103,10 +105,8 @@ object HW1 {
       FileOutputFormat.setOutputPath(embeddingJob, embeddingDirectoryPath)
       if (embeddingJob.waitForCompletion(true)) {
         println("EmbeddingJob completed successfully.")
-        val embeddingCsv: String = "src/main/resources/output/embeddings.csv"
-        val semanticsOutputPath: String = "src/main/resources/output/semantics"
         val conf3 = new Configuration()
-        if (embeddingCsv.startsWith("/user/hadoop/")) {
+        if (embeddingCsvPath.startsWith("/user/hadoop/")) {
           conf3.set("fs.defaultFS", "hdfs://localhost:9000") // Adjust this with your HDFS host
         } else {
           conf3.set("fs.defaultFS", "file:///")
@@ -130,8 +130,8 @@ object HW1 {
         job.setOutputKeyClass(classOf[Text])
         job.setOutputValueClass(classOf[Text])
 
-        FileInputFormat.addInputPath(job, new Path(embeddingCsv))
-        FileOutputFormat.setOutputPath(job, new Path(semanticsOutputPath))
+        FileInputFormat.addInputPath(job, new Path(embeddingCsvPath))
+        FileOutputFormat.setOutputPath(job, semanticsDirectoryPath)
 
         if (job.waitForCompletion(true)) {
           println("Job completed successfully.")
