@@ -1,6 +1,6 @@
 package edu.uic.llmforge
 
-import services.*
+import services._
 import services.BPETokenizer.{BPEMapper, BPEReducer}
 import utils.{ConfigUtil, ShardUtil}
 
@@ -12,19 +12,26 @@ import org.apache.hadoop.io.{IntWritable, Text}
 import org.apache.hadoop.mapreduce.Job
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat
+import org.slf4j.{Logger, LoggerFactory}
 
 object HW1 {
+
+  // Create a logger instance for this class
+  val logger: Logger = LoggerFactory.getLogger(this.getClass)
+
   def main(args: Array[String]): Unit = {
 
     // Check if arguments are provided and initialize configuration
     if (args.nonEmpty) {
+      logger.info("Initializing configuration with provided arguments: {}", args.mkString(", "))
       ConfigUtil.initializeConfig(args.toList)
     } else {
-      println("No command-line arguments provided. Using default configuration.")
+      logger.warn("No command-line arguments provided. Using default configuration.")
     }
 
     // shard text corpus
     val shardUtil = new ShardUtil()
+    logger.info("Sharding the text corpus...")
     shardUtil.shardText()
 
     runHadoopJobs()
@@ -33,30 +40,35 @@ object HW1 {
   def runHadoopJobs(): Unit = {
 
     // Load paths from the configuration
-    val inputPath: String = s"${ConfigUtil.finalConfig.inputDatasetPath}"
-    val shardsDirectory: String = s"${ConfigUtil.finalConfig.shardsDirectory}"
-    val encodingDirectory: String = s"${ConfigUtil.finalConfig.encodingDirectory}"
-    val tokenOutputPath: String = s"${ConfigUtil.finalConfig.tokenOutputPath}"
-    val embeddingOutputPath: String = s"${ConfigUtil.finalConfig.embeddingOutputPath}"
-    val embeddingCsvPath: String = s"${ConfigUtil.finalConfig.embeddingCsvPath}"
-    val semanticsOutputPath: String = s"${ConfigUtil.finalConfig.semanticsOutputPath}"
+    val inputPath: String = ConfigUtil.finalConfig.inputDatasetPath
+    val shardsDirectory: String = ConfigUtil.finalConfig.shardsDirectory
+    val encodingDirectory: String = ConfigUtil.finalConfig.encodingDirectory
+    val tokenOutputPath: String = ConfigUtil.finalConfig.tokenOutputPath
+    val embeddingOutputPath: String = ConfigUtil.finalConfig.embeddingOutputPath
+    val embeddingCsvPath: String = ConfigUtil.finalConfig.embeddingCsvPath
+    val semanticsOutputPath: String = ConfigUtil.finalConfig.semanticsOutputPath
+
+    logger.info("Input paths loaded from configuration.")
 
     val conf = new Configuration()
 
     // Update the configuration to handle S3 paths if using EMR (input/output paths in S3 start with "s3://")
     if (inputPath.startsWith("hdfs")) {
+      logger.info("Using HDFS paths for input.")
     } else if (inputPath.startsWith("/user/hadoop/")) {
+      logger.info("Using local HDFS for input.")
       conf.set("fs.defaultFS", "hdfs://localhost:9000") // Adjust this with your HDFS host if using HDFS
     } else {
+      logger.info("Using local filesystem for input.")
       conf.set("fs.defaultFS", "file:///")
     }
 
-    // Set the correct Hadoop filesystem
     val fs = FileSystem.get(conf)
     val encodingDirectoryPath = new Path(encodingDirectory)
 
     // Check if output path already exists, and delete it if so
     if (fs.exists(encodingDirectoryPath)) {
+      logger.warn("Output path {} exists. Deleting it...", encodingDirectory)
       fs.delete(encodingDirectoryPath, true) // 'true' indicates recursive delete
     }
 
@@ -75,24 +87,30 @@ object HW1 {
     FileInputFormat.addInputPath(wordCountJob, new Path(shardsDirectory))
     FileOutputFormat.setOutputPath(wordCountJob, encodingDirectoryPath)
 
+    logger.info("Starting WordCount job...")
     if (wordCountJob.waitForCompletion(true)) {
-      println("WordCountJob completed successfully.")
-      // next Embedding Mapper Reducer
+      logger.info("WordCountJob completed successfully.")
+
+      // Next Embedding Mapper Reducer
       val conf2 = new Configuration()
       if (inputPath.startsWith("hdfs")) {
+        logger.info("Using HDFS for embedding input.")
       } else if (inputPath.startsWith("/user/hadoop/")) {
+        logger.info("Using local HDFS for embedding input.")
         conf2.set("fs.defaultFS", "hdfs://localhost:9000") // Adjust this with your HDFS host if using HDFS
       } else {
+        logger.info("Using local filesystem for embedding input.")
         conf2.set("fs.defaultFS", "file:///")
       }
 
       val fs2 = FileSystem.get(conf2)
       val embeddingDirectoryPath = new Path(embeddingOutputPath)
 
-      // Check if output path already exists, and delete it if so
       if (fs2.exists(embeddingDirectoryPath)) {
-        fs2.delete(embeddingDirectoryPath, true) // 'true' indicates recursive delete
+        logger.warn("Embedding output path {} exists. Deleting it...", embeddingOutputPath)
+        fs2.delete(embeddingDirectoryPath, true)
       }
+
       val embeddingJob = Job.getInstance(conf2, "Embedding Vector Generator")
       embeddingJob.setJarByClass(this.getClass)
 
@@ -107,50 +125,58 @@ object HW1 {
 
       FileInputFormat.addInputPath(embeddingJob, new Path(tokenOutputPath))
       FileOutputFormat.setOutputPath(embeddingJob, embeddingDirectoryPath)
+
+      logger.info("Starting Embedding job...")
       if (embeddingJob.waitForCompletion(true)) {
-        println("EmbeddingJob completed successfully.")
+        logger.info("EmbeddingJob completed successfully.")
+
         val conf3 = new Configuration()
         if (inputPath.startsWith("hdfs")) {
+          logger.info("Using HDFS for semantics input.")
         } else if (embeddingCsvPath.startsWith("/user/hadoop/")) {
+          logger.info("Using local HDFS for semantics input.")
           conf3.set("fs.defaultFS", "hdfs://localhost:9000") // Adjust this with your HDFS host if using HDFS
         } else {
+          logger.info("Using local filesystem for semantics input.")
           conf3.set("fs.defaultFS", "file:///")
         }
+
         val fs3 = FileSystem.get(conf3)
         val semanticsDirectoryPath = new Path(semanticsOutputPath)
 
-        // Check if output path already exists, and delete it if so
         if (fs3.exists(semanticsDirectoryPath)) {
-          fs3.delete(semanticsDirectoryPath, true) // 'true' indicates recursive delete
+          logger.warn("Semantics output path {} exists. Deleting it...", semanticsOutputPath)
+          fs3.delete(semanticsDirectoryPath, true)
         }
-        val job = Job.getInstance(conf3, "Semantics Job")
-        job.setJarByClass(this.getClass)
 
-        job.setMapperClass(classOf[SemanticMapper])
-        job.setReducerClass(classOf[SemanticReducer])
+        val semanticsJob = Job.getInstance(conf3, "Semantics Job")
+        semanticsJob.setJarByClass(this.getClass)
 
-        job.setMapOutputKeyClass(classOf[Text])
-        job.setMapOutputValueClass(classOf[Text])
+        semanticsJob.setMapperClass(classOf[SemanticMapper])
+        semanticsJob.setReducerClass(classOf[SemanticReducer])
 
-        job.setOutputKeyClass(classOf[Text])
-        job.setOutputValueClass(classOf[Text])
+        semanticsJob.setMapOutputKeyClass(classOf[Text])
+        semanticsJob.setMapOutputValueClass(classOf[Text])
 
-        FileInputFormat.addInputPath(job, new Path(embeddingCsvPath))
-        FileOutputFormat.setOutputPath(job, semanticsDirectoryPath)
+        semanticsJob.setOutputKeyClass(classOf[Text])
+        semanticsJob.setOutputValueClass(classOf[Text])
 
-        if (job.waitForCompletion(true)) {
-          println("SemanticsJob completed successfully.")
+        FileInputFormat.addInputPath(semanticsJob, new Path(embeddingCsvPath))
+        FileOutputFormat.setOutputPath(semanticsJob, semanticsDirectoryPath)
+
+        logger.info("Starting Semantics job...")
+        if (semanticsJob.waitForCompletion(true)) {
+          logger.info("SemanticsJob completed successfully.")
         } else {
-          println("SemanticsJob failed.")
+          logger.error("SemanticsJob failed.")
         }
 
+      } else {
+        logger.error("EmbeddingJob failed.")
       }
-      else {
-        println("EmbeddingJob failed.")
-      }
-    }
-    else {
-      println("WordCountJob failed.")
+
+    } else {
+      logger.error("WordCountJob failed.")
     }
   }
 }
