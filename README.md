@@ -28,7 +28,11 @@ sbt clean compile test
    ```bash
    cd LLMForge
    ```
-3. **Open the project in IntelliJ:**  
+3. **Checkout main branch(if not):**
+   ```bash
+   git checkout origin main
+   ```   
+4. **Open the project in IntelliJ:**  
    [How to Open a Project in IntelliJ](https://www.jetbrains.com/help/idea/import-project-or-module-wizard.html#open-project)
 
 ## Configuration Utility for LLMForge
