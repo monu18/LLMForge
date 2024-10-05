@@ -2,61 +2,16 @@ package edu.uic.llmforge
 package services
 
 import utils.{ConstantsUtil, SimilarityUtil}
-import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.fs.{FileSystem, Path}
-import org.apache.hadoop.io.{IntWritable, Text}
-import org.apache.hadoop.mapreduce.{Job, Mapper, Reducer}
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat
-import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat
-import scala.jdk.CollectionConverters.*
-import org.nd4j.linalg.factory.Nd4j
+
+import org.apache.hadoop.io.Text
+import org.apache.hadoop.mapreduce.{Mapper, Reducer}
 import org.nd4j.linalg.api.ndarray.INDArray
+import org.nd4j.linalg.factory.Nd4j
+
 import scala.collection.mutable.ArrayBuffer
+import scala.jdk.CollectionConverters.*
 
 object SemanticComputation {
-
-  def main(args: Array[String]): Unit = {
-
-    val embeddingCsv: String = "src/main/resources/output/embeddings.csv"
-    val semanticsOutputPath: String = "src/main/resources/output/semantics"
-    val conf3 = new Configuration()
-    if (embeddingCsv.startsWith("/user/hadoop/")) {
-      conf3.set("fs.defaultFS", "hdfs://localhost:9000") // Adjust this with your HDFS host
-    } else {
-      conf3.set("fs.defaultFS", "file:///")
-    }
-    val fs2 = FileSystem.get(conf3)
-    val semanticsDirectoryPath = new Path(semanticsOutputPath)
-
-    // Check if output path already exists, and delete it if so
-    if (fs2.exists(semanticsDirectoryPath)) {
-      fs2.delete(semanticsDirectoryPath, true) // 'true' indicates recursive delete
-    }
-    runJob(conf3, embeddingCsv, semanticsOutputPath)
-  }
-
-  def runJob(conf: Configuration, inputPath: String, outputPath: String): Unit = {
-    val job = Job.getInstance(conf, "Semantics Job")
-    job.setJarByClass(this.getClass)
-
-    job.setMapperClass(classOf[SemanticMapper])
-    job.setReducerClass(classOf[SemanticReducer])
-
-    job.setMapOutputKeyClass(classOf[Text])
-    job.setMapOutputValueClass(classOf[Text])
-
-    job.setOutputKeyClass(classOf[Text])
-    job.setOutputValueClass(classOf[Text])
-
-    FileInputFormat.addInputPath(job, new Path(inputPath))
-    FileOutputFormat.setOutputPath(job, new Path(outputPath))
-
-    if (job.waitForCompletion(true)) {
-      println("Job completed successfully.")
-    } else {
-      println("Job failed.")
-    }
-  }
 
   class SemanticMapper extends Mapper[Object, Text, Text, Text] {
 

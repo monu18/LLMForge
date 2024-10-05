@@ -4,19 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ffb908cd-92a3-4260-a922-cbd57104e422" name="Changes" comment="EMR Test">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/core-site.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hdfs-site.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/.embeddings.csv.crc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/output/.embeddings.csv.crc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/.part-r-00000.crc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/output/embeddings/.part-r-00000.crc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/part-r-00000" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/output/embeddings/part-r-00000" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/encodingoutput/part-r-00000" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/semantics/.part-r-00000.crc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/output/semantics/.part-r-00000.crc" afterDir="false" />
+    <list default="true" id="ffb908cd-92a3-4260-a922-cbd57104e422" name="Changes" comment="Adding Logs">
       <change beforePath="$PROJECT_DIR$/src/main/resources/output/semantics/part-r-00000" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/HW1.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/HW1.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/services/SemanticComputation.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/SemanticComputation.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +92,7 @@
     "Remote JVM Debug.Remote Local.executor": "Debug",
     "Remote JVM Debug.Remote Mapper.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "EMR",
+    "git-widget-placeholder": "Refactoring",
     "kotlin-language-version-configured": "true",
     "last_directory_selection": "/Users/monu/IdeaProjects/LLMForge/project",
     "last_opened_file_path": "/Users/monu/IdeaProjects/LLMForge/src/main/resources/input",
@@ -414,7 +404,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728090389503</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Adding Logs">
+      <option name="closed" value="true" />
+      <created>1728155680352</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1728155680352</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -445,7 +443,8 @@
     <MESSAGE value="Semantics formatting" />
     <MESSAGE value="FileSystem update" />
     <MESSAGE value="EMR Test" />
-    <option name="LAST_COMMIT_MESSAGE" value="EMR Test" />
+    <MESSAGE value="Adding Logs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding Logs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -509,11 +508,6 @@
           <url>file://$PROJECT_DIR$/src/main/scala/services/EmbeddingGenerator.scala</url>
           <line>96</line>
           <option name="timeStamp" value="212" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/services/SemanticComputation.scala</url>
-          <line>21</line>
-          <option name="timeStamp" value="215" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/utils/ShardUtil.scala</url>
