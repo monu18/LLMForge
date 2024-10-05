@@ -24,6 +24,8 @@ val hadoopVersion = "3.3.6"
 val breezeVersion = "2.1.0"
 val deepLearning4jVersion = "1.0.0-M2.1"
 val nd4jApiVersion = "1.0.0-M2.1"
+val scalaTestVersion = "3.2.18"
+val mockitoVersion = "1.15.0"
 
 // Library Dependencies
 libraryDependencies ++= Seq(
@@ -49,6 +51,9 @@ libraryDependencies ++= Seq(
   "org.nd4j" % "nd4j-native" % nd4jApiVersion,
   "org.nd4j" % "nd4j-native-platform" % nd4jApiVersion,
   "org.deeplearning4j" % "deeplearning4j-nlp" % deepLearning4jVersion,
+  "org.scalatest" %% "scalatest" % scalaTestVersion % Test,
+//  "org.mockito" %% "mockito-scala" % mockitoVersion % Test,
+  "org.scalamock" %% "scalamock" % "6.0.0" % Test
 )
 
 // Main Class Configuration

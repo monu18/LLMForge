@@ -1,20 +1,18 @@
 package edu.uic.llmforge
 package services
 
-import edu.uic.llmforge.utils.CustomReshapeUtil
-import org.nd4j.linalg.factory.Nd4j
-import org.nd4j.linalg.api.ndarray.INDArray
-import org.nd4j.linalg.api.buffer.DataType
-import org.deeplearning4j.nn.conf.{MultiLayerConfiguration, NeuralNetConfiguration}
+import utils.{ConstantsUtil, CustomReshapeUtil}
+
 import org.deeplearning4j.nn.conf.layers.{EmbeddingSequenceLayer, OutputLayer}
+import org.deeplearning4j.nn.conf.{MultiLayerConfiguration, NeuralNetConfiguration}
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork
 import org.deeplearning4j.nn.weights.WeightInit
-import org.nd4j.linalg.activations.Activation
-import org.nd4j.linalg.api.ndarray.INDArray
-import org.nd4j.linalg.lossfunctions.LossFunctions.LossFunction
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener
-
-import java.io.{File, FileWriter, PrintWriter}
+import org.nd4j.linalg.activations.Activation
+import org.nd4j.linalg.api.buffer.DataType
+import org.nd4j.linalg.api.ndarray.INDArray
+import org.nd4j.linalg.factory.Nd4j
+import org.nd4j.linalg.lossfunctions.LossFunctions.LossFunction
 
 object EmbeddingPreprocessor {
   val encoder = new Encoder
@@ -25,7 +23,7 @@ object EmbeddingPreprocessor {
     val (inputFeatures, outputLabels) = convertToIndArrays(inputOutputPairs)
 
     val vocabSize = tokenToIndex.size
-    val embeddingDim = 50
+    val embeddingDim = ConstantsUtil.EMBEDDING_DIMENSION
 
     val config: MultiLayerConfiguration = new NeuralNetConfiguration.Builder()
       .weightInit(WeightInit.XAVIER)
