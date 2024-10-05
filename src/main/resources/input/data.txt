@@ -1,0 +1,43 @@
+Howdy y'all! How's it going with this class? I hope hope hope it is going ok. cs441
+Howdy y'all! How's it going with this class? I hope it is going ok.
+A distributed system is a model in which components located on networked computers communicate and coordinate their actions by passing messages.
+The components interact with each other in order to achieve a common goal.
+Each component has its own local memory and processes its own information.
+The distributed system as a whole appears to users as a single coherent system.
+Key Characteristics of distributed systems include:
+Scalability: The ability to handle growth in users and workloads.
+Fault Tolerance: The capability to continue operating in the event of a failure of some components.
+Concurrency: The ability to execute multiple computations simultaneously.
+Transparency: The system hides the complexity and details of the distribution from users.
+There are several types of transparency in distributed systems:
+Location Transparency: Users do not need to know where resources are located.
+Migration Transparency: Resources can move without affecting the user.
+Replication Transparency: Users are unaware of the number of copies of resources.
+Concurrency Transparency: Multiple users can access the same resource without conflict.
+Failure Transparency: The system continues to operate despite failures.
+Distributed systems can be categorized based on their architecture:
+Client-Server Architecture: Clients request resources and servers provide them.
+Peer-to-Peer Architecture: Each node acts as both a client and a server.
+Multi-tier Architecture: Divides functionality into layers, improving scalability and manageability.
+Components in a distributed system can be connected through various networking technologies.
+The communication can occur over local area networks (LAN) or wide area networks (WAN).
+Distributed systems utilize various communication protocols.
+Remote Procedure Call (RPC) allows a program to execute a procedure on a different address space.
+Message Passing is a communication method where processes send and receive messages.
+Distributed systems often require a middleware layer for communication and resource management.
+Middleware provides common services and capabilities to improve the development of applications.
+Examples of middleware include:
+Database Middleware: Manages database connections and queries.
+Message-Oriented Middleware (MOM): Facilitates messaging between distributed components.
+Object Middleware: Allows objects to communicate across networks.
+Distributed systems can be vulnerable to various issues:
+Network Latency: Delay in communication due to the network.
+Partial Failures: Some components may fail while others continue to operate.
+Data Consistency: Maintaining a consistent view of data across distributed nodes.
+To address data consistency, distributed systems often employ:
+Replication: Maintaining copies of data on multiple nodes.
+Consistency Models define how changes to data are visible to different nodes.
+Examples of consistency models include:
+Strong Consistency: Guarantees that all accesses return the most recent write.
+Eventual Consistency: Guarantees that, given enough time, all copies will converge.
+Causal Consistency: Ensures that operations that are causally related are seen by all nodes in the same order.

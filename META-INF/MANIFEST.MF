@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: LLMForge
+Implementation-Version: 0.1.0-SNAPSHOT
+Specification-Vendor: llmforge
+Specification-Title: LLMForge
+Implementation-Vendor-Id: llmforge
+Specification-Version: 0.1.0-SNAPSHOT
+Implementation-Vendor: llmforge
+Main-Class: edu.uic.llmforge.HW1
+
