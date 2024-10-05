@@ -1,0 +1,13 @@
+MessageOriented Middleware MOM Facilitates messaging between distributed components
+Object Middleware Allows objects to communicate across networks
+Distributed systems can be vulnerable to various issues
+Network Latency Delay in communication due to the network
+Partial Failures Some components may fail while others continue to operate
+Data Consistency Maintaining a consistent view of data across distributed nodes
+To address data consistency distributed systems often employ
+Replication Maintaining copies of data on multiple nodes
+Consistency Models define how changes to data are visible to different nodes
+Examples of consistency models include
+Strong Consistency Guarantees that all accesses return the most recent write
+Eventual Consistency Guarantees that given enough time all copies will converge
+Causal Consistency Ensures that operations that are causally related are seen by all nodes in the same order

@@ -1,0 +1,15 @@
+Concurrency Transparency Multiple users can access the same resource without conflict
+Failure Transparency The system continues to operate despite failures
+Distributed systems can be categorized based on their architecture
+ClientServer Architecture Clients request resources and servers provide them
+PeertoPeer Architecture Each node acts as both a client and a server
+Multitier Architecture Divides functionality into layers improving scalability and manageability
+Components in a distributed system can be connected through various networking technologies
+The communication can occur over local area networks LAN or wide area networks WAN
+Distributed systems utilize various communication protocols
+Remote Procedure Call RPC allows a program to execute a procedure on a different address space
+Message Passing is a communication method where processes send and receive messages
+Distributed systems often require a middleware layer for communication and resource management
+Middleware provides common services and capabilities to improve the development of applications
+Examples of middleware include
+Database Middleware Manages database connections and queries

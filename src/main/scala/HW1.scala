@@ -42,13 +42,16 @@ object HW1 {
     val semanticsOutputPath: String = s"${ConfigUtil.finalConfig.semanticsOutputPath}"
 
     val conf = new Configuration()
-    if (inputPath.startsWith("/user/hadoop/")) {
-      conf.set("fs.defaultFS", "hdfs://localhost:9000") // Adjust this with your HDFS host
+
+    // Update the configuration to handle S3 paths if using EMR (input/output paths in S3 start with "s3://")
+    if (inputPath.startsWith("hdfs")) {
+    } else if (inputPath.startsWith("/user/hadoop/")) {
+      conf.set("fs.defaultFS", "hdfs://localhost:9000") // Adjust this with your HDFS host if using HDFS
     } else {
       conf.set("fs.defaultFS", "file:///")
     }
 
-    // Set the correct Hadoop filesystem (usually it defaults to your local file system if not on HDFS)
+    // Set the correct Hadoop filesystem
     val fs = FileSystem.get(conf)
     val encodingDirectoryPath = new Path(encodingDirectory)
 
@@ -76,8 +79,9 @@ object HW1 {
       println("WordCountJob completed successfully.")
       // next Embedding Mapper Reducer
       val conf2 = new Configuration()
-      if (inputPath.startsWith("/user/hadoop/")) {
-        conf2.set("fs.defaultFS", "hdfs://localhost:9000") // Adjust this with your HDFS host
+      if (inputPath.startsWith("hdfs")) {
+      } else if (inputPath.startsWith("/user/hadoop/")) {
+        conf2.set("fs.defaultFS", "hdfs://localhost:9000") // Adjust this with your HDFS host if using HDFS
       } else {
         conf2.set("fs.defaultFS", "file:///")
       }
@@ -106,8 +110,9 @@ object HW1 {
       if (embeddingJob.waitForCompletion(true)) {
         println("EmbeddingJob completed successfully.")
         val conf3 = new Configuration()
-        if (embeddingCsvPath.startsWith("/user/hadoop/")) {
-          conf3.set("fs.defaultFS", "hdfs://localhost:9000") // Adjust this with your HDFS host
+        if (inputPath.startsWith("hdfs")) {
+        } else if (embeddingCsvPath.startsWith("/user/hadoop/")) {
+          conf3.set("fs.defaultFS", "hdfs://localhost:9000") // Adjust this with your HDFS host if using HDFS
         } else {
           conf3.set("fs.defaultFS", "file:///")
         }
@@ -118,7 +123,7 @@ object HW1 {
         if (fs3.exists(semanticsDirectoryPath)) {
           fs3.delete(semanticsDirectoryPath, true) // 'true' indicates recursive delete
         }
-        val job = Job.getInstance(conf, "Semantics Job")
+        val job = Job.getInstance(conf3, "Semantics Job")
         job.setJarByClass(this.getClass)
 
         job.setMapperClass(classOf[SemanticMapper])
@@ -134,20 +139,18 @@ object HW1 {
         FileOutputFormat.setOutputPath(job, semanticsDirectoryPath)
 
         if (job.waitForCompletion(true)) {
-          println("Job completed successfully.")
+          println("SemanticsJob completed successfully.")
         } else {
-          println("Job failed.")
+          println("SemanticsJob failed.")
         }
-        
+
       }
       else {
         println("EmbeddingJob failed.")
       }
     }
     else {
-      println("Job failed.")
+      println("WordCountJob failed.")
     }
   }
 }
-
-

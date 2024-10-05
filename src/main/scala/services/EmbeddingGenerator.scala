@@ -89,7 +89,7 @@ object EmbeddingGenerator {
     // Cleanup method in Reducer
     override def cleanup(context: Reducer[Text, Text, Text, Text]#Context): Unit = {
       logger.info("Reducer task finished. Cleanup called.")
-      val embeddingCsv = new Path("/user/hadoop/output/embeddings.csv")
+      val embeddingCsv = new Path(s"${ConfigUtil.finalConfig.embeddingCsvPath}")
       val fs = embeddingCsv.getFileSystem(context.getConfiguration)
       val outputStream = fs.create(embeddingCsv, true)
 

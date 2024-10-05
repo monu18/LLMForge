@@ -91,7 +91,11 @@ class ShardUtil {
 
     val conf = new Configuration()
 
-    if (inputDatasetPath.startsWith("/user/hadoop/")) {
+    if (inputDatasetPath.startsWith("hdfs")) {
+      val fs = FileSystem.get(conf)
+      shardHDFS(inputDatasetPath, shardsDirectory, shardSize, fs)
+    }
+    else if (inputDatasetPath.startsWith("/user/hadoop/")) {
       conf.set("fs.defaultFS", "hdfs://localhost:9000") // Adjust this with your HDFS host
       val fs = FileSystem.get(conf)
       shardHDFS(inputDatasetPath, shardsDirectory, shardSize, fs)

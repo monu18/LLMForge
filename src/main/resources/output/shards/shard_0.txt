@@ -1,1 +1,15 @@
-Howdy yall Hows it going with this class I hope it is going ok ok ok ok
+Howdy yall Hows it going with this class I hope hope hope it is going ok cs441
+Howdy yall Hows it going with this class I hope it is going ok
+A distributed system is a model in which components located on networked computers communicate and coordinate their actions by passing messages
+The components interact with each other in order to achieve a common goal
+Each component has its own local memory and processes its own information
+The distributed system as a whole appears to users as a single coherent system
+Key Characteristics of distributed systems include
+Scalability The ability to handle growth in users and workloads
+Fault Tolerance The capability to continue operating in the event of a failure of some components
+Concurrency The ability to execute multiple computations simultaneously
+Transparency The system hides the complexity and details of the distribution from users
+There are several types of transparency in distributed systems
+Location Transparency Users do not need to know where resources are located
+Migration Transparency Resources can move without affecting the user
+Replication Transparency Users are unaware of the number of copies of resources
