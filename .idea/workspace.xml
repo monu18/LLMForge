@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ffb908cd-92a3-4260-a922-cbd57104e422" name="Changes" comment="Adding Logs">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/services/EmbeddingPreprocessor.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/EmbeddingPreprocessor.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/utils/ConstantsUtil.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/utils/ConstantsUtil.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/vocabulary/Vocabulary.scala" beforeDir="false" />
-    </list>
+    <list default="true" id="ffb908cd-92a3-4260-a922-cbd57104e422" name="Changes" comment="Adding Logs" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -113,7 +107,7 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "ScalaTest",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.ScalaTest": "org.scalatest.funsuite.AnyFunSuiteLike",
     "com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers": "true",
-    "git-widget-placeholder": "Refactoring",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_directory_selection": "/Users/monu/IdeaProjects/LLMForge/project",
     "last_opened_file_path": "/Users/monu/IdeaProjects/LLMForge/src/main/resources/input",
@@ -144,14 +138,71 @@
       <recent name="edu.uic.llmforge.services" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.HW1">
-    <configuration name="HW1" type="Application" factoryName="Application" temporary="true">
+  <component name="RunManager" selected="Application.LLMForge">
+    <configuration name="LLMForge" type="Application" factoryName="Application" temporary="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-11" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <envs>
+        <env name="HADOOP_HOME" value="/opt/homebrew/Cellar/hadoop/3.3.6" />
+      </envs>
       <option name="MAIN_CLASS_NAME" value="edu.uic.llmforge.HW1" />
       <module name="LLMForge" />
       <option name="PROGRAM_PARAMETERS" value="&quot;LLMForge&quot; &quot;src/main/resources/input/data.txt&quot; &quot;src/main/resources/output/shards&quot; &quot;src/main/resources/output/encodingoutput&quot; &quot;src/main/resources/output/tokens/tokens.txt&quot; &quot;src/main/resources/output/embeddings&quot; &quot;src/main/resources/output/embeddings.csv&quot; &quot;src/main/resources/output/semantics&quot;" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="edu.uic.llmforge.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SemanticComputation" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="edu.uic.llmforge.services.SemanticComputation" />
+      <module name="LLMForge" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.uic.llmforge.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Sharder" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="edu.uic.llmforge.utils.ShardUtil" />
+      <module name="LLMForge" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.uic.llmforge.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestND4JBackend" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="edu.uic.llmforge.services.TestND4JBackend" />
+      <module name="LLMForge" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.uic.llmforge.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WordCountBPEJob" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="edu.uic.llmforge.services.WordCountBPEJob" />
+      <module name="LLMForge" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.uic.llmforge.model.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -201,131 +252,23 @@
       </RunnerSettings>
       <method v="2" />
     </configuration>
-    <configuration name="DecoderTest.decodeLine should decode a single encoded line correctly" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
-      <module name="LLMForge" />
-      <option name="VMParameters" value="" />
-      <option name="allowRunningInParallel" value="false" />
-      <option name="alternativeJrePath" />
-      <option name="alternativeJrePathEnabled" value="false" />
-      <option name="classpathModifications">
-        <list />
-      </option>
-      <option name="envs">
-        <map />
-      </option>
-      <option name="passParentEnvs" value="true" />
-      <option name="programParameters" value="" />
-      <option name="projectPathOnTarget" />
-      <option name="selectedOptions">
-        <list />
-      </option>
-      <option name="testKind" value="Test name" />
-      <option name="workingDirectory" value="$PROJECT_DIR$" />
-      <option name="testClassPath" value="edu.uic.llmforge.services.DecoderTest" />
-      <option name="testName" value="decodeLine should decode a single encoded line correctly" />
-      <option name="workingDirectory" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DecoderTest.process should decode lines from the input file and write to the output file" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
-      <module name="LLMForge" />
-      <option name="VMParameters" value="" />
-      <option name="allowRunningInParallel" value="false" />
-      <option name="alternativeJrePath" />
-      <option name="alternativeJrePathEnabled" value="false" />
-      <option name="classpathModifications">
-        <list />
-      </option>
-      <option name="envs">
-        <map />
-      </option>
-      <option name="passParentEnvs" value="true" />
-      <option name="programParameters" value="" />
-      <option name="projectPathOnTarget" />
-      <option name="selectedOptions">
-        <list />
-      </option>
-      <option name="testKind" value="Test name" />
-      <option name="workingDirectory" value="$PROJECT_DIR$" />
-      <option name="testClassPath" value="edu.uic.llmforge.services.DecoderTest" />
-      <option name="testName" value="process should decode lines from the input file and write to the output file" />
-      <option name="workingDirectory" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EncoderTest.decode should decode tokens back to the original string" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
-      <module name="LLMForge" />
-      <option name="VMParameters" value="" />
-      <option name="allowRunningInParallel" value="false" />
-      <option name="alternativeJrePath" />
-      <option name="alternativeJrePathEnabled" value="false" />
-      <option name="classpathModifications">
-        <list />
-      </option>
-      <option name="envs">
-        <map />
-      </option>
-      <option name="passParentEnvs" value="true" />
-      <option name="programParameters" value="" />
-      <option name="projectPathOnTarget" />
-      <option name="selectedOptions">
-        <list />
-      </option>
-      <option name="testKind" value="Test name" />
-      <option name="workingDirectory" value="$PROJECT_DIR$" />
-      <option name="testClassPath" value="edu.uic.llmforge.services.EncoderTest" />
-      <option name="testName" value="decode should decode tokens back to the original string" />
-      <option name="workingDirectory" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EncoderTest.encodeLine should encode a single line correctly" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
-      <module name="LLMForge" />
-      <option name="VMParameters" value="" />
-      <option name="allowRunningInParallel" value="false" />
-      <option name="alternativeJrePath" />
-      <option name="alternativeJrePathEnabled" value="false" />
-      <option name="classpathModifications">
-        <list />
-      </option>
-      <option name="envs">
-        <map />
-      </option>
-      <option name="passParentEnvs" value="true" />
-      <option name="programParameters" value="" />
-      <option name="projectPathOnTarget" />
-      <option name="selectedOptions">
-        <list />
-      </option>
-      <option name="testKind" value="Test name" />
-      <option name="workingDirectory" value="$PROJECT_DIR$" />
-      <option name="testClassPath" value="edu.uic.llmforge.services.EncoderTest" />
-      <option name="testName" value="encodeLine should encode a single line correctly" />
-      <option name="workingDirectory" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
-      <item itemvalue="Application.HW1" />
+      <item itemvalue="Application.LLMForge" />
+      <item itemvalue="Application.SemanticComputation" />
+      <item itemvalue="Application.Sharder" />
+      <item itemvalue="Application.TestND4JBackend" />
+      <item itemvalue="Application.WordCountBPEJob" />
       <item itemvalue="Remote JVM Debug.Remote Local" />
       <item itemvalue="Remote JVM Debug.Remote Hadoop" />
       <item itemvalue="Remote JVM Debug.Remote Mapper" />
-      <item itemvalue="ScalaTest.DecoderTest.decodeLine should decode a single encoded line correctly" />
-      <item itemvalue="ScalaTest.DecoderTest.process should decode lines from the input file and write to the output file" />
-      <item itemvalue="ScalaTest.EncoderTest.decode should decode tokens back to the original string" />
-      <item itemvalue="ScalaTest.EncoderTest.encodeLine should encode a single line correctly" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.HW1" />
-        <item itemvalue="ScalaTest.DecoderTest.process should decode lines from the input file and write to the output file" />
-        <item itemvalue="ScalaTest.DecoderTest.decodeLine should decode a single encoded line correctly" />
-        <item itemvalue="ScalaTest.EncoderTest.decode should decode tokens back to the original string" />
-        <item itemvalue="ScalaTest.EncoderTest.encodeLine should encode a single line correctly" />
+        <item itemvalue="Application.LLMForge" />
+        <item itemvalue="Application.WordCountBPEJob" />
+        <item itemvalue="Application.Sharder" />
+        <item itemvalue="Application.TestND4JBackend" />
+        <item itemvalue="Application.SemanticComputation" />
       </list>
     </recent_temporary>
   </component>
