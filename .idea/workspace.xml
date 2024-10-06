@@ -6,17 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ffb908cd-92a3-4260-a922-cbd57104e422" name="Changes" comment="EMR Test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/core-site.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hdfs-site.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/.embeddings.csv.crc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/output/.embeddings.csv.crc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/.part-r-00000.crc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/output/embeddings/.part-r-00000.crc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/embeddings/part-r-00000" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/output/embeddings/part-r-00000" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/encodingoutput/part-r-00000" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/semantics/.part-r-00000.crc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/output/semantics/.part-r-00000.crc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/output/semantics/part-r-00000" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/HW1.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/HW1.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/BPETokenizer.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/utils/ConstantsUtil.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/utils/ConstantsUtil.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,34 +79,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.LLMForge.executor": "Run",
-    "Application.SemanticComputation.executor": "Run",
-    "Application.Sharder.executor": "Run",
-    "Application.TestND4JBackend.executor": "Debug",
-    "Application.WordCountBPEJob.executor": "Run",
-    "Application.main.executor": "Debug",
-    "Remote JVM Debug.Remote Hadoop.executor": "Debug",
-    "Remote JVM Debug.Remote LLMForge.executor": "Debug",
-    "Remote JVM Debug.Remote Local.executor": "Debug",
-    "Remote JVM Debug.Remote Mapper.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "EMR",
-    "kotlin-language-version-configured": "true",
-    "last_directory_selection": "/Users/monu/IdeaProjects/LLMForge/project",
-    "last_opened_file_path": "/Users/monu/IdeaProjects/LLMForge/src/main/resources/input",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "sbt.project.settings.configurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.LLMForge.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SemanticComputation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Sharder.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestND4JBackend.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.WordCountBPEJob.executor&quot;: &quot;Run&quot;,
+    &quot;Application.main.executor&quot;: &quot;Debug&quot;,
+    &quot;Remote JVM Debug.Remote Hadoop.executor&quot;: &quot;Debug&quot;,
+    &quot;Remote JVM Debug.Remote LLMForge.executor&quot;: &quot;Debug&quot;,
+    &quot;Remote JVM Debug.Remote Local.executor&quot;: &quot;Debug&quot;,
+    &quot;Remote JVM Debug.Remote Mapper.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;EMR&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;/Users/monu/IdeaProjects/LLMForge/project&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/monu/IdeaProjects/LLMForge/src/main/resources/input&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;sbt.project.settings.configurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/input" />
