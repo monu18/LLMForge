@@ -5,7 +5,7 @@
 ## Introduction
 This homework assignment for CS441 focuses on implementing an encoder for a Large Language Model (LLM) from scratch using distributed computing in the cloud. In this phase, we will create a mapper and reducer using Apache Hadoop to process a given text corpus, generating a YAML or CSV file containing token embeddings and relevant statistics. After testing the program locally, we will deploy and run it on Amazon Elastic MapReduce (EMR).
 
-**Video Link:** [Video Link] (The video explains the deployment of the Hadoop application in the AWS EMR Cluster and the project structure.)
+**Video Link:** [https://youtu.be/QQrTzevd2hA] (The video explains the deployment of the Hadoop application in the AWS EMR Cluster and the project structure.)
 
 ## Environment
 - **OS:** Mac
